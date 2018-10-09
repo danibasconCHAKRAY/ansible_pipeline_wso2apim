@@ -14,5 +14,13 @@ pipeline {
                '''
 		}
         }
+        stage('Checkout-git ansible-wso2apim'){
+               steps{
+                sh '''
+                        git clone git@github.com:danibasconCHAKRAY/ansible-wso2apim.git
+               '''
+                }
+
+        }
   }
 }
