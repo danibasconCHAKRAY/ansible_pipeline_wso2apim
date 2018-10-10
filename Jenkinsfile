@@ -55,12 +55,13 @@ pipeline {
         stage('Defining the playbook for ansible'){
                steps{
                 sh '''
-                        if [ $(cat ansible_lanzamiento_vagrant/provisioning/playbook.yml | wc -l) == 7 ] ; then
-                                echo "        - ansible-wso2apim" >> ansible_lanzamiento_vagrant/provisioning/playbook.yml
+                        if [ $(cat ansible_lanzamiento_vagrant/provisioning/playbook.yml | wc -l) == 6 ] ; then
+                                echo "      - ansible-wso2apim" >> ansible_lanzamiento_vagrant/provisioning/playbook.yml
                         fi
                '''
                 }
 
         }
+
   }
 }
