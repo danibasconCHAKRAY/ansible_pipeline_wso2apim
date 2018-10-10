@@ -70,7 +70,7 @@ pipeline {
                                 cd ansible_lanzamiento_vagrant
                                 #vagrant plugin install vagrant-vmware-esxi
                                 export esxi_password=\$VMWARE
-                                vagrant up prueba  --provider=vmware_esxi --provision 
+                                vagrant up --provider=vmware_esxi --provision 
                         '''
                         }		        
                 }
