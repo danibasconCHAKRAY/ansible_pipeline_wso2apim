@@ -42,5 +42,15 @@ pipeline {
                 }
 
         }
+        stage('Defining the variables for ansible-oracle-java'){
+               steps{
+                sh '''
+                        if [ $(cat ansible_lanzamiento_vagrant/provisioning/group_vars/all.yml | wc -l) == 1 ] ; then
+                                echo -e " java_version: 8 \n java_subversion: 141 \n java_build: 15 \n jdk_tarball_hash: 336fa29ff2bb4ef291e347e091f7f4a7" > ansible_lanzamiento_vagrant/provisioning/group_vars/all.yml
+                        fi
+               '''
+                }
+
+        }
   }
 }
