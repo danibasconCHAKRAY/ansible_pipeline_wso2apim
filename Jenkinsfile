@@ -64,17 +64,15 @@ pipeline {
         }
         stage('Running Vagrant machine'){
                steps{
-                sh '''
-                        set +x
-                        cd ansible_lanzamiento_vagrant
-                        export esxi_password=\$VMWARE
-                        vagrant up prueba  --provider=vmware_esxi --provision 
-               '''
-                }
-                wrappers {
-		        credentialsBinding {
-			        string("VMWARE","c8ca2f47-777a-4ac1-85c8-c4b50c880f32")
-		        }
+                credentialsBinding([string(credentialsId: "VMWARE", variable: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32")]) {
+                        sh '''
+                                set +x
+                                cd ansible_lanzamiento_vagrant
+                                #vagrant plugin install vagrant-vmware-esxi
+                                export esxi_password=\$VMWARE
+                                vagrant up prueba  --provider=vmware_esxi --provision 
+                        '''
+                        }		        
                 }
 
         }
