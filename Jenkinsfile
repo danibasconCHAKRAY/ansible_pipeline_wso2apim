@@ -62,19 +62,6 @@ pipeline {
                 }
 
         }
-        stage('Running Vagrant machine'){
-                steps{
-                withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
-                        sh '''
-                                set +x
-                                cd ansible_lanzamiento_vagrant
-                                #vagrant plugin install vagrant-vmware-esxi
-                                export esxi_password=\$VMWARE
-                                vagrant up --provider=vmware_esxi --provision 
-                        '''
-                        }		        
-                }
 
-        }
   }
 }
