@@ -62,19 +62,33 @@ pipeline {
                 }
 
         }
-        stage('Running Vagrant machine'){
+        stage('Running  machine'){
                steps{
-               withCredentials([usernamePassword(credentialsId: 'c8ca2f47-777a-4ac1-85c8-c4b50c880f32', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-  // available as an env variable, but will be masked if you try to print it out any which way
-  // note: single quotes prevent Groovy interpolation; expansion is by Bourne Shell, which is what you want
-  sh 'echo $PASSWORD'
-  // also available as a Groovy variable
-  echo USERNAME
-  // or inside double quotes for string interpolation
-  echo "username is $USERNAME"
-}		        
+               withCredentials([usernamePassword(credentialsId: 'c8ca2f47-777a-4ac1-85c8-c4b50c880f32', variable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        // available as an env variable, but will be masked if you try to print it out any which way
+                        // note: single quotes prevent Groovy interpolation; expansion is by Bourne Shell, which is what you want
+                        sh 'echo $PASSWORD'
+                        // also available as a Groovy variable
+                        echo USERNAME
+                        // or inside double quotes for string interpolation
+                        echo "username is $USERNAME"
+                }		        
                 }
 
         }
+ //       stage('Running Vagrant machine'){
+ //               steps{
+//                withCredentials([file(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "vagrant_vmware")]) {
+//                        sh '''
+//                                set +x
+//                                cd ansible_lanzamiento_vagrant
+//                                #vagrant plugin install vagrant-vmware-esxi
+//                                export esxi_password=\$vagrant_vmware
+//                                vagrant up prueba  --provider=vmware_esxi --provision 
+//                        '''
+ //                       }		        
+//                }
+//
+//        }
   }
 }
