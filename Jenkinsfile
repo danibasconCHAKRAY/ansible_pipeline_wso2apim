@@ -10,10 +10,10 @@ pipeline {
         stage('Checkout-git ansible_lanzamiento_vagrant'){
                steps{
 		sh '''
-                        if [ -d ! ansible_lanzamiento_vagrant ] ; then
+                        if [ ! -d ansible_lanzamiento_vagrant ] ; then
 			        git clone git@github.com:danibasconCHAKRAY/ansible_lanzamiento_vagrant.git
                         fi
-                        if [ -d ! ansible_lanzamiento_vagrant/provisioning/roles ] ; then
+                        if [ ! -d ansible_lanzamiento_vagrant/provisioning/roles ] ; then
                                 mkdir ansible_lanzamiento_vagrant/provisioning/roles
                         fi
 
@@ -23,7 +23,7 @@ pipeline {
         stage('Checkout-git ansible-wso2apim'){
                steps{
                 sh '''
-                        if [ -d ! ansible-wso2apim ] ; then
+                        if [ ! -d ansible-wso2apim ] ; then
                                 cd ansible_lanzamiento_vagrant/provisioning/roles/
                                 git clone git@github.com:danibasconCHAKRAY/ansible-wso2apim.git
                         fi
@@ -34,7 +34,7 @@ pipeline {
         stage('Checkout-git ansible-oracle-java'){
                steps{
                 sh '''
-                        if [ -d ! ansible-oracle-java ] ; then
+                        if [ ! -d ansible-oracle-java ] ; then
                                 cd ansible_lanzamiento_vagrant/provisioning/roles/
                                 git clone https://github.com/falconmfm/ansible-oracle-java.git
                         fi
