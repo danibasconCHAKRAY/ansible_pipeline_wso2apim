@@ -64,7 +64,7 @@ pipeline {
         }
         stage('Running Vagrant machine'){
                steps{
-                credentialsBinding([string(credentialsId: "VMWARE", variable: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32")]) {
+                withCredentials([file(credentialsId: "vagrant_vmware", variable: "VMWARE")]) {
                         sh '''
                                 set +x
                                 cd ansible_lanzamiento_vagrant
