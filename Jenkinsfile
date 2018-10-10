@@ -62,6 +62,29 @@ pipeline {
                 }
 
         }
+        stage('Running Vagrant machine'){
+                steps{
+                withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
+                        sh '''
+                                set +x
+                                cd ansible_lanzamiento_vagrant
+                                #vagrant plugin install vagrant-vmware-esxi
+                                export esxi_password=\$VMWARE
+                                vagrant up --provider=vmware_esxi --provision 
+                        '''
+                        }		        
+                }
 
+        }
+        stage('Running docker container'){
+                steps{
+                        sh '''
+                                echo "inspec exec test-wso2apim.rb -b ssh --host ip --user vagrant -i /root/.ssh/private_key --sudo"
+                                docker run -it --rm -v  ansible_lanzamiento_vagrant/provisioning/roles/ansible-wso2apim/tests/:/devops/source -v \
+                                ansible_lanzamiento_vagrant/.vagrant/machines/`ls ansible_lanzamiento_vagrant/.vagrant/machines`/vmware_esxi/private_key:/root/.ssh/private_key  \ 
+                                 chakray/platform:1.0.0 bash
+                        '''
+                }
+        }
   }
 }
