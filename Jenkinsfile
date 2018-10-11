@@ -81,8 +81,9 @@ pipeline {
                         sh '''
                                 set +x
                                 export esxi_password=\$VMWARE
-                                cd ansible_lanzamiento_vagrant
-                                echo "inspec exec test-wso2apim.rb -b ssh --host $(vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b") --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
+                                cd ansible_lanzamiento_vagrant ; IP=''
+                                IP=$(vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b")
+                                echo "inspec exec test-wso2apim.rb -b ssh --host $IP --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
                                 chmod +x script.sh
                                 cd ../
                                 docker run -dit --name test-`date +%y-%m-%d` -v $(pwd)/ansible_lanzamiento_vagrant/provisioning/roles/ansible-wso2apim/tests/:/devops/source \
