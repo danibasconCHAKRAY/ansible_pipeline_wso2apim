@@ -80,7 +80,7 @@ pipeline {
                 steps{
                         sh '''
                                 cd ansible_lanzamiento_vagrant
-                                echo "inspec exec test-wso2apim.rb -b ssh --host `vagrant ssh-config | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"` --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
+                                echo "inspec exec test-wso2apim.rb -b ssh --host `vagrant ssh-config | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}"` --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
                                 chmod +x script.sh
                                 cd ../
                                 docker run -dit --name test -v $(pwd)/ansible_lanzamiento_vagrant/provisioning/roles/ansible-wso2apim/tests/:/devops/source \
