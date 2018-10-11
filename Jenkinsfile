@@ -69,7 +69,10 @@ pipeline {
                                 set +x
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
-                                vagrant up --provider=vmware_esxi --provision 
+                                vagrant up --provider=vmware_esxi --provision
+                                IP=$(vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b")
+                                echo "inspec exec test-wso2apim.rb -b ssh --host $IP --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
+                                chmod +x script.sh 
                         '''
                         }		        
                 }
@@ -79,14 +82,6 @@ pipeline {
                 steps{
                 withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
                         sh '''
-                                -x
-                                set +x
-                                cd ansible_lanzamiento_vagrant
-                                export esxi_password=\$VMWARE
-                                IP=$(vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b")
-                                echo "inspec exec test-wso2apim.rb -b ssh --host $IP --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
-                                chmod +x script.sh
-                                cd ../
                                 docker run -dit --name test-`date +%y-%m-%d` -v $(pwd)/ansible_lanzamiento_vagrant/provisioning/roles/ansible-wso2apim/tests/:/devops/source \
                                 -v $(pwd)/ansible_lanzamiento_vagrant/.vagrant/machines/`ls ansible_lanzamiento_vagrant/.vagrant/machines`/vmware_esxi/private_key:/root/.ssh/private_key  \
                                 chakray/platform:1.0.0 bash
