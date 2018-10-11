@@ -81,7 +81,7 @@ pipeline {
                         sh '''
                                 set +x
                                 export esxi_password=\$VMWARE
-                                cd ansible_lanzamiento_vagrant ; IP=''
+                                cd ansible_lanzamiento_vagrant
                                 IP=$(vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b")
                                 echo "inspec exec test-wso2apim.rb -b ssh --host $IP --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
                                 chmod +x script.sh
