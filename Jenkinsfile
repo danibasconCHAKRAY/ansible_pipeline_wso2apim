@@ -78,12 +78,12 @@ pipeline {
         stage('Running docker container'){
                 steps{
                 withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
-                        bash '''
+                        sh '''
                                 #!/bin/bash
                                 set +x
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
-                                IP=$(vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b")
+                                IP=`vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b"`
                                 echo "inspec exec test-wso2apim.rb -b ssh --host $IP --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
                                 chmod +x script.sh
                                 cd ../
