@@ -75,7 +75,7 @@ pipeline {
                 }
 
         }
-        stage('Running test'){
+        stage('Running SHELL'){
                 steps{
                         sh '''
                         echo $SHELL
