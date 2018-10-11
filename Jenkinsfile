@@ -83,7 +83,7 @@ pipeline {
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
                                 vagrant ssh-config  > ip.txt
-                                cat ip.txt
+                                cat ip.txt | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b"
                                 
                         '''
                         }		        
