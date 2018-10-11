@@ -125,7 +125,7 @@ pipeline {
                                 set +x
                                 export esxi_password=\$VMWARE
                                 cd ansible_lanzamiento_vagrant/
-                                vagrant destroy -f
+                                #vagrant destroy -f
                         '''
                         }		        
                 }
