@@ -69,8 +69,7 @@ pipeline {
                                 set +x
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
-                                                                vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b" > ip.txt
-
+                                vagrant ssh-config | grep -oE "([0-9]{1,3}[.]){3}[0-9]{1,3}"
                                 vagrant up --provider=vmware_esxi --provision 
                         '''
                         }		        
@@ -91,7 +90,7 @@ pipeline {
                                 set +x
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
-                                vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b" > ip.txt
+                                vagrant ssh-config | grep -oE "([0-9]{1,3}[.]){3}[0-9]{1,3}" > ip.txt
                                 echo "inspec exec test-wso2apim.rb -b ssh --host $(cat ip.txt) --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
                                 chmod +x script.sh
                                 cd ../
