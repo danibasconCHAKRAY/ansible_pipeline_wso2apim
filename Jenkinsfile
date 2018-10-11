@@ -79,6 +79,7 @@ pipeline {
                 steps{
                 withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
                         sh '''
+                                -x
                                 set +x
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
