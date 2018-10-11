@@ -105,7 +105,7 @@ pipeline {
         stage('Running test'){
                 steps{
                         sh '''
-                                docker exec -it test-`date +%y-%m-%d` sh script.sh
+                                docker exec test-`date +%y-%m-%d` sh script.sh
                         '''
                 }
         }        
