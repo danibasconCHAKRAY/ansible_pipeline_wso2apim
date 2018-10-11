@@ -90,6 +90,7 @@ pipeline {
                                 chakray/platform:1.0.0 bash
                                 docker cp ansible_lanzamiento_vagrant/script.sh test-`date +%y-%m-%d`:/devops/source
                         '''
+                        }
                 }
         }
         stage('Running test'){
@@ -110,7 +111,7 @@ pipeline {
         }
         stage('Poweroff vagrant machine'){
                 steps{
-                withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
+                        withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
                         sh '''
                                 set +x
                                 export esxi_password=\$VMWARE
