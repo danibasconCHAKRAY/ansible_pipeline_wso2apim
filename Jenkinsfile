@@ -69,7 +69,6 @@ pipeline {
                                 set +x
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
-                                vagrant ssh-config | grep -oE "([0-9]{1,3}[.]){3}[0-9]{1,3}"
                                 vagrant up --provider=vmware_esxi --provision 
                         '''
                         }		        
