@@ -79,13 +79,13 @@ pipeline {
                 steps{
                 withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
                         sh '''
-                                echo $SHELL
+                                #echo $SHELL
                                 set +x
                                 cd ansible_lanzamiento_vagrant
                                 export esxi_password=\$VMWARE
                                 vagrant ssh-config | grep -oE "(\b[0-9]{1,3}[.]){3}[0-9]{1,3}\b" > ip.txt
                                 cat ip.txt
-
+                        
                         '''
                         }		        
                 }
