@@ -62,33 +62,13 @@ pipeline {
                 }
 
         }
-        stage('Running Vagrant machine'){
-                steps{
-                withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
-                        sh '''
-                                set +x
-                                cd ansible_lanzamiento_vagrant
-                                export esxi_password=\$VMWARE
-                                vagrant up --provider=vmware_esxi --provision 
-                        '''
-                        }		        
-                }
-
-        }
-        stage('Running SHELL'){
-                steps{
-                        sh '''
-                        echo $SHELL
-                        '''
-                }
-        } 
         stage('Running docker container'){
                 steps{
                 withCredentials([string(credentialsId: "c8ca2f47-777a-4ac1-85c8-c4b50c880f32", variable: "VMWARE")]) {
                         sh '''
                                 set +x
                                 cd ansible_lanzamiento_vagrant
-                                export esxi_password=\$VMWARE
+                                #export esxi_password=\$VMWARE
                                 vagrant ssh-config | grep -oE "([0-9]{1,3}[.]){3}[0-9]{1,3}" > ip.txt
                                 echo "inspec exec test-wso2apim.rb -b ssh --host $(cat ip.txt) --user vagrant -i /root/.ssh/private_key --sudo" > script.sh
                                 chmod +x script.sh
@@ -105,7 +85,7 @@ pipeline {
         stage('Running test'){
                 steps{
                         sh '''
-                                docker exec -it test-`date +%y-%m-%d` sh /devops/source/script.sh
+                                docker exec -it test-`date +%y-%m-%d` sh script.sh
                         '''
                 }
         }        
